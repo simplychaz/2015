@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ccc50c1a546d4bb6b02f8434ecd3f4bb" Name="Diagram1">
+        <EntityTypeShape EntityType="PayrollModel.Bank" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.BIRAnnualTaxTable" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.BIRTaxExemption" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.BIRWHoldingTaxTable" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.BIRWType" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.Branch" Width="1.5" PointX="3.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.ComputationOption" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.CurrentComputation" Width="1.5" PointX="7.5" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.Deminimi" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.EmployeeClass" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.Employee" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.Employer" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.GSISTable" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.HDMFTable" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.LoanType" Width="1.5" PointX="0.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.Organization" Width="1.5" PointX="3.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.PayCode" Width="1.5" PointX="3" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.PayRate" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.PostedCutOff" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.ProcessSetup" Width="1.5" PointX="5.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.SSSBracket" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayrollModel.User" Width="1.5" PointX="3.75" PointY="23.375" IsExpanded="true" />
+        <AssociationConnector Association="PayrollModel.FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Table_1_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_dbo_ComputationOptions_dbo_Employer_EmployerId" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_CurrentComputation_PayCodes" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_CurrentComputation_ProcessSetups" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Deminimis_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_dbo_EmployeeClasses_dbo_Employer_EmployerId" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_PayRates_EmployeeClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_PostedCutOffs_EmployeeClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Employee_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Employee_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Employee_Organization" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Employee_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_Organization_Organization" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_PayRates_PayCodes" ManuallyRouted="false" />
+        <AssociationConnector Association="PayrollModel.FK_PostedCutOffs_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

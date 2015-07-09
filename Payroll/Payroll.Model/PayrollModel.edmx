@@ -1,0 +1,1644 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PayrollModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Banks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ext_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BIRAnnualTaxTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bracket" Type="nvarchar(max)" />
+          <Property Name="Lo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Hi" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Base" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="percent" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BIRTaxExemptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ExemptionAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BIRWHoldingTaxTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PayScheme" Type="int" Nullable="false" />
+          <Property Name="BIRTaxExemptionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Base" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BIRWTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ext_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="Branch" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComputationOptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SSSFormula" Type="int" Nullable="false" />
+          <Property Name="PhilHealthFormula" Type="int" Nullable="false" />
+          <Property Name="HDMFFormula" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CurrentComputations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProcessSetupId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PayCodeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="HoursWorked" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Deminimis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ext_id" Type="nvarchar(max)" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="TaxCeiling" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeClasses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PayPeriod" Type="int" Nullable="false" />
+          <Property Name="WageScheme" Type="int" Nullable="false" />
+          <Property Name="RegularDays" Type="int" Nullable="false" />
+          <Property Name="DaysPerYear" Type="int" Nullable="false" />
+          <Property Name="HoursPerDay" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="EmployerId" Type="uniqueidentifier" />
+          <Property Name="CardNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsBoy" Type="bit" Nullable="false" />
+          <Property Name="Bday" Type="datetime" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zipcode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecurityNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TIN" Type="nvarchar" MaxLength="50" />
+          <Property Name="HDMF" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhilHealth" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateHired" Type="datetime" Nullable="false" />
+          <Property Name="DateProbationary" Type="datetime" />
+          <Property Name="DateRegularized" Type="datetime" />
+          <Property Name="BasicPay" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="BankAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankId" Type="uniqueidentifier" />
+          <Property Name="IsProcess" Type="bit" Nullable="false" />
+          <Property Name="Deduct_SS" Type="bit" Nullable="false" />
+          <Property Name="Deduct_Tax" Type="bit" Nullable="false" />
+          <Property Name="Deduct_HDMF" Type="bit" Nullable="false" />
+          <Property Name="Deduct_Phealth" Type="bit" Nullable="false" />
+          <Property Name="HDMF_FixAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="ShiftId" Type="uniqueidentifier" />
+          <Property Name="DayOffMonday" Type="bit" Nullable="false" />
+          <Property Name="DayOffTues" Type="bit" Nullable="false" />
+          <Property Name="DayOffWed" Type="bit" Nullable="false" />
+          <Property Name="DayOffThurs" Type="bit" Nullable="false" />
+          <Property Name="DayOffFri" Type="bit" Nullable="false" />
+          <Property Name="DayOffSat" Type="bit" Nullable="false" />
+          <Property Name="DayOffSunday" Type="bit" Nullable="false" />
+          <Property Name="Paid_LH" Type="bit" Nullable="false" />
+          <Property Name="Paid_SH" Type="bit" Nullable="false" />
+          <Property Name="IsClocking" Type="bit" Nullable="false" />
+          <Property Name="BranchId" Type="uniqueidentifier" />
+          <Property Name="OrganizationId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Employers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zipcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TIN" Type="nvarchar" MaxLength="50" />
+          <Property Name="SSNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhilHealth" Type="nvarchar" MaxLength="50" />
+          <Property Name="RDO" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GSISTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CoverageType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonalShare_Life" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PersonalShare_Retirement" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GovtShare_Life" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GovtShare_Retirement" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HDMFTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bracket" Type="nvarchar(max)" />
+          <Property Name="LO" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="HI" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PercentEmployee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PercentEmployer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AmountEmployee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AmountEmployer" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoanTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Loan" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Organizations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ext_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsTaxable" Type="nvarchar(max)" />
+          <Property Name="IsAttendanceCode" Type="bit" Nullable="false" />
+          <Property Name="IsAttendanceEarning" Type="bit" Nullable="false" />
+          <Property Name="IsEarning" Type="nvarchar(max)" />
+          <Property Name="LoanTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BIRWTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayRates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeClassId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PayCodeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PostedCutOffs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Employee_class_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PayPeriod" Type="int" Nullable="false" />
+          <Property Name="WageScheme" Type="int" Nullable="false" />
+          <Property Name="RegularDays" Type="int" Nullable="false" />
+          <Property Name="DaysPeryear" Type="int" Nullable="false" />
+          <Property Name="HoursPerday" Type="int" Nullable="false" />
+          <Property Name="Date_Computation" Type="datetime" Nullable="false" />
+          <Property Name="CutOffStart" Type="datetime" Nullable="false" />
+          <Property Name="CutOffEnd" Type="datetime" Nullable="false" />
+          <Property Name="PayDate" Type="datetime" Nullable="false" />
+          <Property Name="PayMonth" Type="int" Nullable="false" />
+          <Property Name="DeductSSS" Type="bit" Nullable="false" />
+          <Property Name="DeductHDMF" Type="bit" Nullable="false" />
+          <Property Name="DeductPhilhealth" Type="bit" Nullable="false" />
+          <Property Name="DeductLoan" Type="bit" Nullable="false" />
+          <Property Name="DeductFixedDeduction" Type="bit" Nullable="false" />
+          <Property Name="DeductOnetimeDeduction" Type="bit" Nullable="false" />
+          <Property Name="AnnualizeTax" Type="bit" Nullable="false" />
+          <Property Name="PostDate" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProcessSetups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeClassId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CutOffStart" Type="datetime" Nullable="false" />
+          <Property Name="CutOffEnd" Type="datetime" Nullable="false" />
+          <Property Name="PayDate" Type="datetime" Nullable="false" />
+          <Property Name="PayMonth" Type="int" Nullable="false" />
+          <Property Name="DeductSSS" Type="bit" Nullable="false" />
+          <Property Name="DeductHDMF" Type="bit" Nullable="false" />
+          <Property Name="DeductPhilhealth" Type="bit" Nullable="false" />
+          <Property Name="DeductLoan" Type="bit" Nullable="false" />
+          <Property Name="DeductFixedDeduction" Type="bit" Nullable="false" />
+          <Property Name="DeductOnetimeDeduction" Type="bit" Nullable="false" />
+          <Property Name="AnnualizeTax" Type="bit" Nullable="false" />
+          <Property Name="IsPosted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SSSBrackets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Bracket" Type="nvarchar(max)" />
+          <Property Name="Lo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Hi" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MSC" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ER_SSS" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EE_SSS" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ER_MCR" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EE_MCR" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ER_CCC" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="100" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CurrentComputation_PayCodes">
+          <End Role="PayCodes" Type="Self.PayCodes" Multiplicity="1" />
+          <End Role="CurrentComputations" Type="Self.CurrentComputations" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PayCodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CurrentComputations">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentComputation_ProcessSetups">
+          <End Role="ProcessSetups" Type="Self.ProcessSetups" Multiplicity="1" />
+          <End Role="CurrentComputations" Type="Self.CurrentComputations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessSetups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CurrentComputations">
+              <PropertyRef Name="ProcessSetupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId">
+          <End Role="BIRTaxExemptions" Type="Self.BIRTaxExemptions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BIRWHoldingTaxTables" Type="Self.BIRWHoldingTaxTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BIRTaxExemptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BIRWHoldingTaxTables">
+              <PropertyRef Name="BIRTaxExemptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ComputationOptions_dbo_Employer_EmployerId">
+          <End Role="Employers" Type="Self.Employers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ComputationOptions" Type="Self.ComputationOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ComputationOptions">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_EmployeeClasses_dbo_Employer_EmployerId">
+          <End Role="Employers" Type="Self.Employers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeClasses" Type="Self.EmployeeClasses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeClasses">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId">
+          <End Role="LoanTypes" Type="Self.LoanTypes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PayCodes" Type="Self.PayCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoanTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayCodes">
+              <PropertyRef Name="LoanTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId">
+          <End Role="EmployeeClasses" Type="Self.EmployeeClasses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProcessSetups" Type="Self.ProcessSetups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProcessSetups">
+              <PropertyRef Name="EmployeeClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deminimis_Employer">
+          <End Role="Employers" Type="Self.Employers" Multiplicity="1" />
+          <End Role="Deminimis" Type="Self.Deminimis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deminimis">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees1" Type="Self.Employees" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employer">
+          <End Role="Employers" Type="Self.Employers" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Organization">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organization_Organization">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1" />
+          <End Role="Organizations1" Type="Self.Organizations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Organizations1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayRates_EmployeeClasses">
+          <End Role="EmployeeClasses" Type="Self.EmployeeClasses" Multiplicity="1" />
+          <End Role="PayRates" Type="Self.PayRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayRates">
+              <PropertyRef Name="EmployeeClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayRates_PayCodes">
+          <End Role="PayCodes" Type="Self.PayCodes" Multiplicity="1" />
+          <End Role="PayRates" Type="Self.PayRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PayCodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayRates">
+              <PropertyRef Name="PayCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostedCutOffs_EmployeeClasses">
+          <End Role="EmployeeClasses" Type="Self.EmployeeClasses" Multiplicity="1" />
+          <End Role="PostedCutOffs" Type="Self.PostedCutOffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostedCutOffs">
+              <PropertyRef Name="Employee_class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostedCutOffs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="PostedCutOffs" Type="Self.PostedCutOffs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostedCutOffs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Bank">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PayrollModelStoreContainer">
+          <EntitySet Name="Banks" EntityType="Self.Banks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BIRAnnualTaxTables" EntityType="Self.BIRAnnualTaxTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BIRTaxExemptions" EntityType="Self.BIRTaxExemptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BIRWHoldingTaxTables" EntityType="Self.BIRWHoldingTaxTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BIRWTypes" EntityType="Self.BIRWTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComputationOptions" EntityType="Self.ComputationOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentComputations" EntityType="Self.CurrentComputations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deminimis" EntityType="Self.Deminimis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeClasses" EntityType="Self.EmployeeClasses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employers" EntityType="Self.Employers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GSISTables" EntityType="Self.GSISTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HDMFTables" EntityType="Self.HDMFTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanTypes" EntityType="Self.LoanTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayCodes" EntityType="Self.PayCodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayRates" EntityType="Self.PayRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostedCutOffs" EntityType="Self.PostedCutOffs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcessSetups" EntityType="Self.ProcessSetups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SSSBrackets" EntityType="Self.SSSBrackets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CurrentComputation_PayCodes" Association="Self.FK_CurrentComputation_PayCodes">
+            <End Role="PayCodes" EntitySet="PayCodes" />
+            <End Role="CurrentComputations" EntitySet="CurrentComputations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentComputation_ProcessSetups" Association="Self.FK_CurrentComputation_ProcessSetups">
+            <End Role="ProcessSetups" EntitySet="ProcessSetups" />
+            <End Role="CurrentComputations" EntitySet="CurrentComputations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId" Association="Self.FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId">
+            <End Role="BIRTaxExemptions" EntitySet="BIRTaxExemptions" />
+            <End Role="BIRWHoldingTaxTables" EntitySet="BIRWHoldingTaxTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ComputationOptions_dbo_Employer_EmployerId" Association="Self.FK_dbo_ComputationOptions_dbo_Employer_EmployerId">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="ComputationOptions" EntitySet="ComputationOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EmployeeClasses_dbo_Employer_EmployerId" Association="Self.FK_dbo_EmployeeClasses_dbo_Employer_EmployerId">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId" Association="Self.FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId">
+            <End Role="LoanTypes" EntitySet="LoanTypes" />
+            <End Role="PayCodes" EntitySet="PayCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId" Association="Self.FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId">
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+            <End Role="ProcessSetups" EntitySet="ProcessSetups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deminimis_Employer" Association="Self.FK_Deminimis_Employer">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="Deminimis" EntitySet="Deminimis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees1" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employer" Association="Self.FK_Employee_Employer">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Organization" Association="Self.FK_Employee_Organization">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organization_Organization" Association="Self.FK_Organization_Organization">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Organizations1" EntitySet="Organizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayRates_EmployeeClasses" Association="Self.FK_PayRates_EmployeeClasses">
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+            <End Role="PayRates" EntitySet="PayRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayRates_PayCodes" Association="Self.FK_PayRates_PayCodes">
+            <End Role="PayCodes" EntitySet="PayCodes" />
+            <End Role="PayRates" EntitySet="PayRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostedCutOffs_EmployeeClasses" Association="Self.FK_PostedCutOffs_EmployeeClasses">
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+            <End Role="PostedCutOffs" EntitySet="PostedCutOffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostedCutOffs_Users" Association="Self.FK_PostedCutOffs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostedCutOffs" EntitySet="PostedCutOffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Bank" Association="Self.FK_Table_1_Bank">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PayrollModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ext_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BIRAnnualTaxTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Bracket" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lo" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Hi" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Base" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="percent" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BIRTaxExemption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExemptionAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="BIRWHoldingTaxTables" Relationship="Self.FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId" FromRole="BIRTaxExemptions" ToRole="BIRWHoldingTaxTables" />
+        </EntityType>
+        <EntityType Name="BIRWHoldingTaxTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PayScheme" Type="Int32" Nullable="false" />
+          <Property Name="BIRTaxExemptionId" Type="Guid" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Base" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="BIRTaxExemption" Relationship="Self.FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId" FromRole="BIRWHoldingTaxTables" ToRole="BIRTaxExemptions" />
+        </EntityType>
+        <EntityType Name="BIRWType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ext_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Branch1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Table_1_Bank" FromRole="Branch" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="ComputationOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EmployerId" Type="Guid" Nullable="false" />
+          <Property Name="SSSFormula" Type="Int32" Nullable="false" />
+          <Property Name="PhilHealthFormula" Type="Int32" Nullable="false" />
+          <Property Name="HDMFFormula" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_dbo_ComputationOptions_dbo_Employer_EmployerId" FromRole="ComputationOptions" ToRole="Employers" />
+        </EntityType>
+        <EntityType Name="CurrentComputation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProcessSetupId" Type="Guid" Nullable="false" />
+          <Property Name="PayCodeId" Type="Guid" Nullable="false" />
+          <Property Name="HoursWorked" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="PayCode" Relationship="Self.FK_CurrentComputation_PayCodes" FromRole="CurrentComputations" ToRole="PayCodes" />
+          <NavigationProperty Name="ProcessSetup" Relationship="Self.FK_CurrentComputation_ProcessSetups" FromRole="CurrentComputations" ToRole="ProcessSetups" />
+        </EntityType>
+        <EntityType Name="Deminimi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EmployerId" Type="Guid" Nullable="false" />
+          <Property Name="ext_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaxCeiling" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_Deminimis_Employer" FromRole="Deminimis" ToRole="Employers" />
+        </EntityType>
+        <EntityType Name="EmployeeClass">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EmployerId" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PayPeriod" Type="Int32" Nullable="false" />
+          <Property Name="WageScheme" Type="Int32" Nullable="false" />
+          <Property Name="RegularDays" Type="Int32" Nullable="false" />
+          <Property Name="DaysPerYear" Type="Int32" Nullable="false" />
+          <Property Name="HoursPerDay" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_dbo_EmployeeClasses_dbo_Employer_EmployerId" FromRole="EmployeeClasses" ToRole="Employers" />
+          <NavigationProperty Name="ProcessSetups" Relationship="Self.FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId" FromRole="EmployeeClasses" ToRole="ProcessSetups" />
+          <NavigationProperty Name="PayRates" Relationship="Self.FK_PayRates_EmployeeClasses" FromRole="EmployeeClasses" ToRole="PayRates" />
+          <NavigationProperty Name="PostedCutOffs" Relationship="Self.FK_PostedCutOffs_EmployeeClasses" FromRole="EmployeeClasses" ToRole="PostedCutOffs" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="EmployerId" Type="Guid" />
+          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsBoy" Type="Boolean" Nullable="false" />
+          <Property Name="Bday" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HDMF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhilHealth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateHired" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateProbationary" Type="DateTime" Precision="3" />
+          <Property Name="DateRegularized" Type="DateTime" Precision="3" />
+          <Property Name="BasicPay" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankId" Type="Guid" />
+          <Property Name="IsProcess" Type="Boolean" Nullable="false" />
+          <Property Name="Deduct_SS" Type="Boolean" Nullable="false" />
+          <Property Name="Deduct_Tax" Type="Boolean" Nullable="false" />
+          <Property Name="Deduct_HDMF" Type="Boolean" Nullable="false" />
+          <Property Name="Deduct_Phealth" Type="Boolean" Nullable="false" />
+          <Property Name="HDMF_FixAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ShiftId" Type="Guid" />
+          <Property Name="DayOffMonday" Type="Boolean" Nullable="false" />
+          <Property Name="DayOffTues" Type="Boolean" Nullable="false" />
+          <Property Name="DayOffWed" Type="Boolean" Nullable="false" />
+          <Property Name="DayOffThurs" Type="Boolean" Nullable="false" />
+          <Property Name="DayOffFri" Type="Boolean" Nullable="false" />
+          <Property Name="DayOffSat" Type="Boolean" Nullable="false" />
+          <Property Name="DayOffSunday" Type="Boolean" Nullable="false" />
+          <Property Name="Paid_LH" Type="Boolean" Nullable="false" />
+          <Property Name="Paid_SH" Type="Boolean" Nullable="false" />
+          <Property Name="IsClocking" Type="Boolean" Nullable="false" />
+          <Property Name="BranchId" Type="Guid" />
+          <Property Name="OrganizationId" Type="Guid" />
+          <NavigationProperty Name="Branch" Relationship="Self.FK_Table_1_Bank" FromRole="Employees" ToRole="Branch" />
+          <NavigationProperty Name="Employees1" Relationship="Self.FK_Employee_Employee" FromRole="Employees" ToRole="Employees1" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Employee_Employee" FromRole="Employees1" ToRole="Employees" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_Employee_Employer" FromRole="Employees" ToRole="Employers" />
+          <NavigationProperty Name="Organization" Relationship="Self.FK_Employee_Organization" FromRole="Employees" ToRole="Organizations" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employee_User" FromRole="Employees" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Employer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SSNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhilHealth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ComputationOptions" Relationship="Self.FK_dbo_ComputationOptions_dbo_Employer_EmployerId" FromRole="Employers" ToRole="ComputationOptions" />
+          <NavigationProperty Name="Deminimis" Relationship="Self.FK_Deminimis_Employer" FromRole="Employers" ToRole="Deminimis" />
+          <NavigationProperty Name="EmployeeClasses" Relationship="Self.FK_dbo_EmployeeClasses_dbo_Employer_EmployerId" FromRole="Employers" ToRole="EmployeeClasses" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Employer" FromRole="Employers" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="GSISTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="CoverageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PersonalShare_Life" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PersonalShare_Retirement" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GovtShare_Life" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="GovtShare_Retirement" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HDMFTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Bracket" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LO" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="HI" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PercentEmployee" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PercentEmployer" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AmountEmployee" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AmountEmployer" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoanType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Loan" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PayCodes" Relationship="Self.FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId" FromRole="LoanTypes" ToRole="PayCodes" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ext_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Organization" FromRole="Organizations" ToRole="Employees" />
+          <NavigationProperty Name="Organizations1" Relationship="Self.FK_Organization_Organization" FromRole="Organizations" ToRole="Organizations1" />
+          <NavigationProperty Name="Organization1" Relationship="Self.FK_Organization_Organization" FromRole="Organizations1" ToRole="Organizations" />
+        </EntityType>
+        <EntityType Name="PayCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EmployerId" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsTaxable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAttendanceCode" Type="Boolean" Nullable="false" />
+          <Property Name="IsAttendanceEarning" Type="Boolean" Nullable="false" />
+          <Property Name="IsEarning" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoanTypeId" Type="Guid" Nullable="false" />
+          <Property Name="BIRWTypeId" Type="Guid" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CurrentComputation" Relationship="Self.FK_CurrentComputation_PayCodes" FromRole="PayCodes" ToRole="CurrentComputations" />
+          <NavigationProperty Name="LoanType" Relationship="Self.FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId" FromRole="PayCodes" ToRole="LoanTypes" />
+          <NavigationProperty Name="PayRates" Relationship="Self.FK_PayRates_PayCodes" FromRole="PayCodes" ToRole="PayRates" />
+        </EntityType>
+        <EntityType Name="PayRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeClassId" Type="Guid" Nullable="false" />
+          <Property Name="PayCodeId" Type="Guid" Nullable="false" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="EmployeeClass" Relationship="Self.FK_PayRates_EmployeeClasses" FromRole="PayRates" ToRole="EmployeeClasses" />
+          <NavigationProperty Name="PayCode" Relationship="Self.FK_PayRates_PayCodes" FromRole="PayRates" ToRole="PayCodes" />
+        </EntityType>
+        <EntityType Name="PostedCutOff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Employee_class_id" Type="Guid" Nullable="false" />
+          <Property Name="PayPeriod" Type="Int32" Nullable="false" />
+          <Property Name="WageScheme" Type="Int32" Nullable="false" />
+          <Property Name="RegularDays" Type="Int32" Nullable="false" />
+          <Property Name="DaysPeryear" Type="Int32" Nullable="false" />
+          <Property Name="HoursPerday" Type="Int32" Nullable="false" />
+          <Property Name="Date_Computation" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CutOffStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CutOffEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PayDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PayMonth" Type="Int32" Nullable="false" />
+          <Property Name="DeductSSS" Type="Boolean" Nullable="false" />
+          <Property Name="DeductHDMF" Type="Boolean" Nullable="false" />
+          <Property Name="DeductPhilhealth" Type="Boolean" Nullable="false" />
+          <Property Name="DeductLoan" Type="Boolean" Nullable="false" />
+          <Property Name="DeductFixedDeduction" Type="Boolean" Nullable="false" />
+          <Property Name="DeductOnetimeDeduction" Type="Boolean" Nullable="false" />
+          <Property Name="AnnualizeTax" Type="Boolean" Nullable="false" />
+          <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="EmployeeClass" Relationship="Self.FK_PostedCutOffs_EmployeeClasses" FromRole="PostedCutOffs" ToRole="EmployeeClasses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_PostedCutOffs_Users" FromRole="PostedCutOffs" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ProcessSetup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeClassId" Type="Guid" Nullable="false" />
+          <Property Name="CutOffStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CutOffEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PayDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PayMonth" Type="Int32" Nullable="false" />
+          <Property Name="DeductSSS" Type="Boolean" Nullable="false" />
+          <Property Name="DeductHDMF" Type="Boolean" Nullable="false" />
+          <Property Name="DeductPhilhealth" Type="Boolean" Nullable="false" />
+          <Property Name="DeductLoan" Type="Boolean" Nullable="false" />
+          <Property Name="DeductFixedDeduction" Type="Boolean" Nullable="false" />
+          <Property Name="DeductOnetimeDeduction" Type="Boolean" Nullable="false" />
+          <Property Name="AnnualizeTax" Type="Boolean" Nullable="false" />
+          <Property Name="IsPosted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CurrentComputations" Relationship="Self.FK_CurrentComputation_ProcessSetups" FromRole="ProcessSetups" ToRole="CurrentComputations" />
+          <NavigationProperty Name="EmployeeClass" Relationship="Self.FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId" FromRole="ProcessSetups" ToRole="EmployeeClasses" />
+        </EntityType>
+        <EntityType Name="SSSBracket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Bracket" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lo" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Hi" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MSC" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ER_SSS" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EE_SSS" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ER_MCR" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EE_MCR" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ER_CCC" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_User" FromRole="Users" ToRole="Employees" />
+          <NavigationProperty Name="PostedCutOffs" Relationship="Self.FK_PostedCutOffs_Users" FromRole="Users" ToRole="PostedCutOffs" />
+        </EntityType>
+        <Association Name="FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId">
+          <End Role="BIRTaxExemptions" Type="Self.BIRTaxExemption" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BIRWHoldingTaxTables" Type="Self.BIRWHoldingTaxTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BIRTaxExemptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BIRWHoldingTaxTables">
+              <PropertyRef Name="BIRTaxExemptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Bank">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ComputationOptions_dbo_Employer_EmployerId">
+          <End Role="Employers" Type="Self.Employer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ComputationOptions" Type="Self.ComputationOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ComputationOptions">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentComputation_PayCodes">
+          <End Role="PayCodes" Type="Self.PayCode" Multiplicity="1" />
+          <End Role="CurrentComputations" Type="Self.CurrentComputation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PayCodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CurrentComputations">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentComputation_ProcessSetups">
+          <End Role="ProcessSetups" Type="Self.ProcessSetup" Multiplicity="1" />
+          <End Role="CurrentComputations" Type="Self.CurrentComputation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessSetups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CurrentComputations">
+              <PropertyRef Name="ProcessSetupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deminimis_Employer">
+          <End Role="Employers" Type="Self.Employer" Multiplicity="1" />
+          <End Role="Deminimis" Type="Self.Deminimi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deminimis">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_EmployeeClasses_dbo_Employer_EmployerId">
+          <End Role="Employers" Type="Self.Employer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeClasses" Type="Self.EmployeeClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeClasses">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId">
+          <End Role="EmployeeClasses" Type="Self.EmployeeClass" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProcessSetups" Type="Self.ProcessSetup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProcessSetups">
+              <PropertyRef Name="EmployeeClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayRates_EmployeeClasses">
+          <End Role="EmployeeClasses" Type="Self.EmployeeClass" Multiplicity="1" />
+          <End Role="PayRates" Type="Self.PayRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayRates">
+              <PropertyRef Name="EmployeeClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostedCutOffs_EmployeeClasses">
+          <End Role="EmployeeClasses" Type="Self.EmployeeClass" Multiplicity="1" />
+          <End Role="PostedCutOffs" Type="Self.PostedCutOff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeClasses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostedCutOffs">
+              <PropertyRef Name="Employee_class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employee">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employees1" Type="Self.Employee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Employer">
+          <End Role="Employers" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="EmployerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Organization">
+          <End Role="Organizations" Type="Self.Organization" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId">
+          <End Role="LoanTypes" Type="Self.LoanType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PayCodes" Type="Self.PayCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoanTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayCodes">
+              <PropertyRef Name="LoanTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Organization_Organization">
+          <End Role="Organizations" Type="Self.Organization" Multiplicity="1" />
+          <End Role="Organizations1" Type="Self.Organization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Organizations1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayRates_PayCodes">
+          <End Role="PayCodes" Type="Self.PayCode" Multiplicity="1" />
+          <End Role="PayRates" Type="Self.PayRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PayCodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayRates">
+              <PropertyRef Name="PayCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostedCutOffs_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="PostedCutOffs" Type="Self.PostedCutOff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostedCutOffs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PayrollEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banks" EntityType="Self.Bank" />
+          <EntitySet Name="BIRAnnualTaxTables" EntityType="Self.BIRAnnualTaxTable" />
+          <EntitySet Name="BIRTaxExemptions" EntityType="Self.BIRTaxExemption" />
+          <EntitySet Name="BIRWHoldingTaxTables" EntityType="Self.BIRWHoldingTaxTable" />
+          <EntitySet Name="BIRWTypes" EntityType="Self.BIRWType" />
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="ComputationOptions" EntityType="Self.ComputationOption" />
+          <EntitySet Name="CurrentComputations" EntityType="Self.CurrentComputation" />
+          <EntitySet Name="Deminimis" EntityType="Self.Deminimi" />
+          <EntitySet Name="EmployeeClasses" EntityType="Self.EmployeeClass" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Employers" EntityType="Self.Employer" />
+          <EntitySet Name="GSISTables" EntityType="Self.GSISTable" />
+          <EntitySet Name="HDMFTables" EntityType="Self.HDMFTable" />
+          <EntitySet Name="LoanTypes" EntityType="Self.LoanType" />
+          <EntitySet Name="Organizations" EntityType="Self.Organization" />
+          <EntitySet Name="PayCodes" EntityType="Self.PayCode" />
+          <EntitySet Name="PayRates" EntityType="Self.PayRate" />
+          <EntitySet Name="PostedCutOffs" EntityType="Self.PostedCutOff" />
+          <EntitySet Name="ProcessSetups" EntityType="Self.ProcessSetup" />
+          <EntitySet Name="SSSBrackets" EntityType="Self.SSSBracket" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId" Association="Self.FK_dbo_BIRWHoldingTaxTables_dbo_BIRTaxExemptions_BIRTaxExemptionId">
+            <End Role="BIRTaxExemptions" EntitySet="BIRTaxExemptions" />
+            <End Role="BIRWHoldingTaxTables" EntitySet="BIRWHoldingTaxTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Bank" Association="Self.FK_Table_1_Bank">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ComputationOptions_dbo_Employer_EmployerId" Association="Self.FK_dbo_ComputationOptions_dbo_Employer_EmployerId">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="ComputationOptions" EntitySet="ComputationOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentComputation_PayCodes" Association="Self.FK_CurrentComputation_PayCodes">
+            <End Role="PayCodes" EntitySet="PayCodes" />
+            <End Role="CurrentComputations" EntitySet="CurrentComputations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentComputation_ProcessSetups" Association="Self.FK_CurrentComputation_ProcessSetups">
+            <End Role="ProcessSetups" EntitySet="ProcessSetups" />
+            <End Role="CurrentComputations" EntitySet="CurrentComputations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deminimis_Employer" Association="Self.FK_Deminimis_Employer">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="Deminimis" EntitySet="Deminimis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_EmployeeClasses_dbo_Employer_EmployerId" Association="Self.FK_dbo_EmployeeClasses_dbo_Employer_EmployerId">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId" Association="Self.FK_dbo_ProcessSetups_dbo_EmployeeClasses_EmployeeClassId">
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+            <End Role="ProcessSetups" EntitySet="ProcessSetups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayRates_EmployeeClasses" Association="Self.FK_PayRates_EmployeeClasses">
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+            <End Role="PayRates" EntitySet="PayRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostedCutOffs_EmployeeClasses" Association="Self.FK_PostedCutOffs_EmployeeClasses">
+            <End Role="EmployeeClasses" EntitySet="EmployeeClasses" />
+            <End Role="PostedCutOffs" EntitySet="PostedCutOffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employee" Association="Self.FK_Employee_Employee">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Employees1" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Employer" Association="Self.FK_Employee_Employer">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Organization" Association="Self.FK_Employee_Organization">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId" Association="Self.FK_dbo_PayCodes_dbo_LoanTypes_LoanTypeId">
+            <End Role="LoanTypes" EntitySet="LoanTypes" />
+            <End Role="PayCodes" EntitySet="PayCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Organization_Organization" Association="Self.FK_Organization_Organization">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Organizations1" EntitySet="Organizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayRates_PayCodes" Association="Self.FK_PayRates_PayCodes">
+            <End Role="PayCodes" EntitySet="PayCodes" />
+            <End Role="PayRates" EntitySet="PayRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostedCutOffs_Users" Association="Self.FK_PostedCutOffs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostedCutOffs" EntitySet="PostedCutOffs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PayrollModelStoreContainer" CdmEntityContainer="PayrollEntities">
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="PayrollModel.Bank">
+              <MappingFragment StoreEntitySet="Banks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ext_id" ColumnName="ext_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BIRAnnualTaxTables">
+            <EntityTypeMapping TypeName="PayrollModel.BIRAnnualTaxTable">
+              <MappingFragment StoreEntitySet="BIRAnnualTaxTables">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bracket" ColumnName="Bracket" />
+                <ScalarProperty Name="Lo" ColumnName="Lo" />
+                <ScalarProperty Name="Hi" ColumnName="Hi" />
+                <ScalarProperty Name="Base" ColumnName="Base" />
+                <ScalarProperty Name="percent" ColumnName="percent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BIRTaxExemptions">
+            <EntityTypeMapping TypeName="PayrollModel.BIRTaxExemption">
+              <MappingFragment StoreEntitySet="BIRTaxExemptions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ExemptionAmount" ColumnName="ExemptionAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BIRWHoldingTaxTables">
+            <EntityTypeMapping TypeName="PayrollModel.BIRWHoldingTaxTable">
+              <MappingFragment StoreEntitySet="BIRWHoldingTaxTables">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PayScheme" ColumnName="PayScheme" />
+                <ScalarProperty Name="BIRTaxExemptionId" ColumnName="BIRTaxExemptionId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Base" ColumnName="Base" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BIRWTypes">
+            <EntityTypeMapping TypeName="PayrollModel.BIRWType">
+              <MappingFragment StoreEntitySet="BIRWTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="PayrollModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ext_id" ColumnName="ext_id" />
+                <ScalarProperty Name="Branch1" ColumnName="Branch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComputationOptions">
+            <EntityTypeMapping TypeName="PayrollModel.ComputationOption">
+              <MappingFragment StoreEntitySet="ComputationOptions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+                <ScalarProperty Name="SSSFormula" ColumnName="SSSFormula" />
+                <ScalarProperty Name="PhilHealthFormula" ColumnName="PhilHealthFormula" />
+                <ScalarProperty Name="HDMFFormula" ColumnName="HDMFFormula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentComputations">
+            <EntityTypeMapping TypeName="PayrollModel.CurrentComputation">
+              <MappingFragment StoreEntitySet="CurrentComputations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcessSetupId" ColumnName="ProcessSetupId" />
+                <ScalarProperty Name="PayCodeId" ColumnName="PayCodeId" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deminimis">
+            <EntityTypeMapping TypeName="PayrollModel.Deminimi">
+              <MappingFragment StoreEntitySet="Deminimis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+                <ScalarProperty Name="ext_id" ColumnName="ext_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="TaxCeiling" ColumnName="TaxCeiling" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeClasses">
+            <EntityTypeMapping TypeName="PayrollModel.EmployeeClass">
+              <MappingFragment StoreEntitySet="EmployeeClasses">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PayPeriod" ColumnName="PayPeriod" />
+                <ScalarProperty Name="WageScheme" ColumnName="WageScheme" />
+                <ScalarProperty Name="RegularDays" ColumnName="RegularDays" />
+                <ScalarProperty Name="DaysPerYear" ColumnName="DaysPerYear" />
+                <ScalarProperty Name="HoursPerDay" ColumnName="HoursPerDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PayrollModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="IsBoy" ColumnName="IsBoy" />
+                <ScalarProperty Name="Bday" ColumnName="Bday" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="SecurityNo" ColumnName="SecurityNo" />
+                <ScalarProperty Name="TIN" ColumnName="TIN" />
+                <ScalarProperty Name="HDMF" ColumnName="HDMF" />
+                <ScalarProperty Name="PhilHealth" ColumnName="PhilHealth" />
+                <ScalarProperty Name="DateHired" ColumnName="DateHired" />
+                <ScalarProperty Name="DateProbationary" ColumnName="DateProbationary" />
+                <ScalarProperty Name="DateRegularized" ColumnName="DateRegularized" />
+                <ScalarProperty Name="BasicPay" ColumnName="BasicPay" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="IsProcess" ColumnName="IsProcess" />
+                <ScalarProperty Name="Deduct_SS" ColumnName="Deduct_SS" />
+                <ScalarProperty Name="Deduct_Tax" ColumnName="Deduct_Tax" />
+                <ScalarProperty Name="Deduct_HDMF" ColumnName="Deduct_HDMF" />
+                <ScalarProperty Name="Deduct_Phealth" ColumnName="Deduct_Phealth" />
+                <ScalarProperty Name="HDMF_FixAmount" ColumnName="HDMF_FixAmount" />
+                <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+                <ScalarProperty Name="DayOffMonday" ColumnName="DayOffMonday" />
+                <ScalarProperty Name="DayOffTues" ColumnName="DayOffTues" />
+                <ScalarProperty Name="DayOffWed" ColumnName="DayOffWed" />
+                <ScalarProperty Name="DayOffThurs" ColumnName="DayOffThurs" />
+                <ScalarProperty Name="DayOffFri" ColumnName="DayOffFri" />
+                <ScalarProperty Name="DayOffSat" ColumnName="DayOffSat" />
+                <ScalarProperty Name="DayOffSunday" ColumnName="DayOffSunday" />
+                <ScalarProperty Name="Paid_LH" ColumnName="Paid_LH" />
+                <ScalarProperty Name="Paid_SH" ColumnName="Paid_SH" />
+                <ScalarProperty Name="IsClocking" ColumnName="IsClocking" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employers">
+            <EntityTypeMapping TypeName="PayrollModel.Employer">
+              <MappingFragment StoreEntitySet="Employers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="TIN" ColumnName="TIN" />
+                <ScalarProperty Name="SSNo" ColumnName="SSNo" />
+                <ScalarProperty Name="PhilHealth" ColumnName="PhilHealth" />
+                <ScalarProperty Name="RDO" ColumnName="RDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GSISTables">
+            <EntityTypeMapping TypeName="PayrollModel.GSISTable">
+              <MappingFragment StoreEntitySet="GSISTables">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CoverageType" ColumnName="CoverageType" />
+                <ScalarProperty Name="PersonalShare_Life" ColumnName="PersonalShare_Life" />
+                <ScalarProperty Name="PersonalShare_Retirement" ColumnName="PersonalShare_Retirement" />
+                <ScalarProperty Name="GovtShare_Life" ColumnName="GovtShare_Life" />
+                <ScalarProperty Name="GovtShare_Retirement" ColumnName="GovtShare_Retirement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HDMFTables">
+            <EntityTypeMapping TypeName="PayrollModel.HDMFTable">
+              <MappingFragment StoreEntitySet="HDMFTables">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bracket" ColumnName="Bracket" />
+                <ScalarProperty Name="LO" ColumnName="LO" />
+                <ScalarProperty Name="HI" ColumnName="HI" />
+                <ScalarProperty Name="PercentEmployee" ColumnName="PercentEmployee" />
+                <ScalarProperty Name="PercentEmployer" ColumnName="PercentEmployer" />
+                <ScalarProperty Name="AmountEmployee" ColumnName="AmountEmployee" />
+                <ScalarProperty Name="AmountEmployer" ColumnName="AmountEmployer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanTypes">
+            <EntityTypeMapping TypeName="PayrollModel.LoanType">
+              <MappingFragment StoreEntitySet="LoanTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Loan" ColumnName="Loan" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="PayrollModel.Organization">
+              <MappingFragment StoreEntitySet="Organizations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ext_id" ColumnName="ext_id" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayCodes">
+            <EntityTypeMapping TypeName="PayrollModel.PayCode">
+              <MappingFragment StoreEntitySet="PayCodes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployerId" ColumnName="EmployerId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsTaxable" ColumnName="IsTaxable" />
+                <ScalarProperty Name="IsAttendanceCode" ColumnName="IsAttendanceCode" />
+                <ScalarProperty Name="IsAttendanceEarning" ColumnName="IsAttendanceEarning" />
+                <ScalarProperty Name="IsEarning" ColumnName="IsEarning" />
+                <ScalarProperty Name="LoanTypeId" ColumnName="LoanTypeId" />
+                <ScalarProperty Name="BIRWTypeId" ColumnName="BIRWTypeId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayRates">
+            <EntityTypeMapping TypeName="PayrollModel.PayRate">
+              <MappingFragment StoreEntitySet="PayRates">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployeeClassId" ColumnName="EmployeeClassId" />
+                <ScalarProperty Name="PayCodeId" ColumnName="PayCodeId" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostedCutOffs">
+            <EntityTypeMapping TypeName="PayrollModel.PostedCutOff">
+              <MappingFragment StoreEntitySet="PostedCutOffs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Employee_class_id" ColumnName="Employee_class_id" />
+                <ScalarProperty Name="PayPeriod" ColumnName="PayPeriod" />
+                <ScalarProperty Name="WageScheme" ColumnName="WageScheme" />
+                <ScalarProperty Name="RegularDays" ColumnName="RegularDays" />
+                <ScalarProperty Name="DaysPeryear" ColumnName="DaysPeryear" />
+                <ScalarProperty Name="HoursPerday" ColumnName="HoursPerday" />
+                <ScalarProperty Name="Date_Computation" ColumnName="Date_Computation" />
+                <ScalarProperty Name="CutOffStart" ColumnName="CutOffStart" />
+                <ScalarProperty Name="CutOffEnd" ColumnName="CutOffEnd" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="PayMonth" ColumnName="PayMonth" />
+                <ScalarProperty Name="DeductSSS" ColumnName="DeductSSS" />
+                <ScalarProperty Name="DeductHDMF" ColumnName="DeductHDMF" />
+                <ScalarProperty Name="DeductPhilhealth" ColumnName="DeductPhilhealth" />
+                <ScalarProperty Name="DeductLoan" ColumnName="DeductLoan" />
+                <ScalarProperty Name="DeductFixedDeduction" ColumnName="DeductFixedDeduction" />
+                <ScalarProperty Name="DeductOnetimeDeduction" ColumnName="DeductOnetimeDeduction" />
+                <ScalarProperty Name="AnnualizeTax" ColumnName="AnnualizeTax" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcessSetups">
+            <EntityTypeMapping TypeName="PayrollModel.ProcessSetup">
+              <MappingFragment StoreEntitySet="ProcessSetups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployeeClassId" ColumnName="EmployeeClassId" />
+                <ScalarProperty Name="CutOffStart" ColumnName="CutOffStart" />
+                <ScalarProperty Name="CutOffEnd" ColumnName="CutOffEnd" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="PayMonth" ColumnName="PayMonth" />
+                <ScalarProperty Name="DeductSSS" ColumnName="DeductSSS" />
+                <ScalarProperty Name="DeductHDMF" ColumnName="DeductHDMF" />
+                <ScalarProperty Name="DeductPhilhealth" ColumnName="DeductPhilhealth" />
+                <ScalarProperty Name="DeductLoan" ColumnName="DeductLoan" />
+                <ScalarProperty Name="DeductFixedDeduction" ColumnName="DeductFixedDeduction" />
+                <ScalarProperty Name="DeductOnetimeDeduction" ColumnName="DeductOnetimeDeduction" />
+                <ScalarProperty Name="AnnualizeTax" ColumnName="AnnualizeTax" />
+                <ScalarProperty Name="IsPosted" ColumnName="IsPosted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SSSBrackets">
+            <EntityTypeMapping TypeName="PayrollModel.SSSBracket">
+              <MappingFragment StoreEntitySet="SSSBrackets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bracket" ColumnName="Bracket" />
+                <ScalarProperty Name="Lo" ColumnName="Lo" />
+                <ScalarProperty Name="Hi" ColumnName="Hi" />
+                <ScalarProperty Name="MSC" ColumnName="MSC" />
+                <ScalarProperty Name="ER_SSS" ColumnName="ER_SSS" />
+                <ScalarProperty Name="EE_SSS" ColumnName="EE_SSS" />
+                <ScalarProperty Name="ER_MCR" ColumnName="ER_MCR" />
+                <ScalarProperty Name="EE_MCR" ColumnName="EE_MCR" />
+                <ScalarProperty Name="ER_CCC" ColumnName="ER_CCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PayrollModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

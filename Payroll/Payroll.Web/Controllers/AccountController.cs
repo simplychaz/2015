@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using Payroll.Web.Models;
+using System.Web.Http.ModelBinding;
+using System.Web.Http;
 
 namespace Payroll.Web.Controllers
 {
